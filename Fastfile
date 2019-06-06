@@ -106,7 +106,7 @@ platform :ios do
         short: true
       }, {
         title: 'App',
-        value: 'ios :iphone:', #TODO get app name somehow
+        value: "#{get_project_name} ios :iphone:",
         short: true
       }]
     }
@@ -135,6 +135,11 @@ platform :ios do
       section_identifier: '[Unreleased]',
       excluded_markdown_elements: ['-', '###']
     ).strip
+  end
+
+  desc "Find project name"
+  private_lane :get_project_name do
+    sh("find .. -name '*.xcodeproj' -maxdepth 1 | sed -E 's/\\.\\.\\/(.+)\\.xcodeproj/\\1/g'").strip
   end
 
 end
