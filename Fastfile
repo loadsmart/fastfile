@@ -36,6 +36,7 @@ platform :ios do
     sh "git commit -am 'app: bump version to #{version} (#{get_build_number}) [skip ci]' --no-verify"
   end
 
+  desc "Run main target test"
   lane :test do
     scan
   end
