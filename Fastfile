@@ -49,7 +49,7 @@ platform :ios do
   end
 
   desc "Submit a new Beta version to Crashlytics Beta"
-  lane :crashlytics_beta
+  lane :crashlytics_beta do
     fabric_token = ENV["FABRIC_API_TOKEN"]
     raise "Env var 'FABRIC_API_TOKEN' not set" unless fabric_token
 
