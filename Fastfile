@@ -78,7 +78,7 @@ platform :ios do
     sync_code_signing(type: "appstore")
     bump
     build_app
-    upload_to_testflight(changelog: changelog, skip_waiting_for_build_processing: is_ci)
+    upload_to_testflight(username: "mobile@loadsmart.com", changelog: changelog, skip_waiting_for_build_processing: is_ci)
     commit_version
     push_to_git_remote
     notify_on_slack(changelog: changelog)
