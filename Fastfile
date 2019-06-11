@@ -6,6 +6,10 @@ default_platform :ios
 
 platform :ios do
 
+  before_all do
+    setup_circle_ci if is_ci
+  end
+
   desc "Increment version's major number"
   lane :major do |options|
     increment_version_number(bump_type: "major")
