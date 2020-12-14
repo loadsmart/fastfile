@@ -53,27 +53,29 @@ platform :ios do
     match(type: "development", force_for_new_devices: true)
   end
 
-  desc "Submit a new Beta version to Crashlytics Beta"
-  lane :crashlytics_beta do
-    fabric_token = ENV["FABRIC_API_TOKEN"]
-    raise "Env var 'FABRIC_API_TOKEN' not set" unless fabric_token
+  desc "Submit a new Beta version to Firebase App Distribution"
+  lane :firebase_beta do |options|
+    app_identifier = options[:app_identifier]
+    raise "Missing parameter app_identifier" unless app_identifier
+    
+    configuration = options[:configuration]
+    raise "Missing parameter configuration" unless configuration
+    
+    firebase_group = options[:firebase_group]
+    raise "Missing parameter firebase_group" unless firebase_group
+    
+    scheme = options[:scheme]
+    raise "Missing parameter scheme" unless scheme
+    
+    firebase_app = ENV["FIREBASE_IOS_APP"]
+    raise "Env var 'FIREBASE_IOS_APP' not set" unless firebase_app
 
-    fabric_secret = ENV["FABRIC_BUILD_SECRET"]
-    raise "Env var 'FABRIC_BUILD_SECRET' not set" unless fabric_secret
-
-    setup_circle_ci if is_ci
-    sync_code_signing(type: "ad-hoc")
+    sync_code_signing(type: "adhoc", app_identifier: [app_identifier])
     bump
-    build_app
-    crashlytics(
-      api_token: fabric_token,
-      build_secret: fabric_secret,
-      groups: ['qa-ios'],
-      notes: changelog
-    )
+    build_app(scheme: scheme, configuration: configuration, export_method: "ad-hoc")
+    firebase_app_distribution(app: firebase_app, groups: firebase_group)
     commit_version
     push_to_git_remote
-    notify_on_slack(changelog: changelog)
   end
 
   desc "Submit a new Beta version to Testflight"
