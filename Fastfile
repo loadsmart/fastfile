@@ -74,8 +74,8 @@ platform :ios do
     bump
     build_app(scheme: scheme, configuration: configuration, export_method: "ad-hoc")
     firebase_app_distribution(app: firebase_app, groups: firebase_group)
-    commit_version
-    push_to_git_remote
+    commit_version if options[:commit]
+    push_to_git_remote if options[:push]
   end
 
   desc "Submit a new Beta version to Testflight"
