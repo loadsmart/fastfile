@@ -28,6 +28,17 @@ platform :ios do
     commit_version if options[:commit]
   end
 
+  desc "Read version from package.json and set it into plist"
+  lane :stamp_js_version do |options|
+    require 'json'
+
+    packageJSON = File.read('../../package.json')
+    data = JSON.parse(packageJSON)
+
+    increment_version_number(version_number: data['version'])
+    commit_version if options[:commit]
+  end
+
   desc "Increment build number"
   lane :bump do |options|
     increment_build_number
