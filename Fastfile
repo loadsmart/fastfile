@@ -84,7 +84,7 @@ platform :ios do
     sync_code_signing(type: "adhoc", app_identifier: [app_identifier])
     bump
     build_app(scheme: scheme, configuration: configuration, export_method: "ad-hoc")
-    firebase_app_distribution(app: firebase_app, groups: firebase_group)
+    firebase_app_distribution(app: firebase_app, groups: firebase_group, release_notes: options[:changelog])
     commit_version if options[:commit]
     push_to_git_remote if options[:push]
   end
