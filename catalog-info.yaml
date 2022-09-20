@@ -1,0 +1,13 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: fastfile
+  description: Shared lanes that can be imported by Loadsmart's mobile apps using Fastlane
+  annotations:
+    github.com/project-slug: loadsmart/fastfile
+  tags:
+    - ruby
+spec:
+  type: library
+  lifecycle: production
+  owner: mobile
