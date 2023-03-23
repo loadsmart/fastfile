@@ -5,6 +5,7 @@ metadata:
   description: Shared lanes that can be imported by Loadsmart's mobile apps using Fastlane
   annotations:
     github.com/project-slug: loadsmart/fastfile
+    opslevel.com/tier: tier_3
   tags:
     - ruby
 spec:
